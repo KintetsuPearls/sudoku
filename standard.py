@@ -5,18 +5,16 @@ block = 3
 
 #マスの初期配置 0は空欄
 board = [
-  [8,0,0,0,0,0,0,0,0],
-  [0,0,3,6,0,0,0,0,0],
-  [0,7,0,0,9,0,2,0,0],
-  [0,5,0,0,0,7,0,0,0],
-  [0,0,0,0,4,5,7,0,0],
-  [0,0,0,1,0,0,0,3,0],
-  [0,0,1,0,0,0,0,6,8],
-  [0,0,8,5,0,0,0,1,0],
-  [0,9,0,0,0,0,4,0,0]
+  [0,8,0,0,0,0,0,0,0],
+  [4,0,2,0,0,1,0,0,0],
+  [9,0,0,0,0,0,5,7,0],
+  [0,0,0,8,0,4,0,0,0],
+  [0,7,0,0,3,0,9,0,0],
+  [0,0,1,2,0,0,0,3,0],
+  [8,0,0,0,0,0,0,1,3],
+  [0,0,3,0,8,6,0,0,0],
+  [0,0,9,0,0,0,0,0,0]
 ]
-
-ans = 0
 
 def check(i,j,number):
   #(i,j)にnumberが入ったときにルールを満たしているかのチェック
@@ -39,19 +37,22 @@ def check(i,j,number):
   return True
 
 def put(i,j,number):
+  flag = False
+
   if board[i][j] != number:
     if board[i][j] != 0:
       return False
 
     if check(i,j,number) == False:
       return False
-
-    board[i][j] = number
+    if board[i][j] == 0:
+      board[i][j] = number
+  else:
+    flag = True
 
   if i == num-1 and j == num-1:
-    global ans
-    ans += 1
     show()
+    exit()
 
   else:
     if j+1 >= num:
@@ -63,8 +64,8 @@ def put(i,j,number):
 
     for nex in range(1,num+1):
       put(nexi,nexj,nex)
-
-  board[i][j] = 0
+  if flag == False:
+    board[i][j] = 0
 
   return True
 
@@ -79,7 +80,7 @@ def show():
 
 def main():
   start()
-  print(ans)
+
 
 if __name__ == '__main__':
   main()
